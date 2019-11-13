@@ -1,0 +1,7 @@
+/home/lois/testSpring/ArchiIng3/src/main/java/edu/esipe/i3/ezipflix/frontend/ConversionRequest.java
+/home/lois/testSpring/ArchiIng3/src/main/java/edu/esipe/i3/ezipflix/frontend/ConversionResponse.java
+/home/lois/testSpring/ArchiIng3/src/main/java/edu/esipe/i3/ezipflix/frontend/VideoStatusHandler.java
+/home/lois/testSpring/ArchiIng3/src/main/java/edu/esipe/i3/ezipflix/frontend/VideoDispatcher.java
+/home/lois/testSpring/ArchiIng3/src/main/java/edu/esipe/i3/ezipflix/frontend/data/repositories/VideoConversionRepository.java
+/home/lois/testSpring/ArchiIng3/src/main/java/edu/esipe/i3/ezipflix/frontend/data/services/VideoConversion.java
+/home/lois/testSpring/ArchiIng3/src/main/java/edu/esipe/i3/ezipflix/frontend/data/entities/VideoConversions.java

@@ -1,0 +1,7 @@
+edu/esipe/i3/ezipflix/frontend/data/entities/VideoConversions.class
+edu/esipe/i3/ezipflix/frontend/data/repositories/VideoConversionRepository.class
+edu/esipe/i3/ezipflix/frontend/ConversionResponse.class
+edu/esipe/i3/ezipflix/frontend/VideoDispatcher.class
+edu/esipe/i3/ezipflix/frontend/ConversionRequest.class
+edu/esipe/i3/ezipflix/frontend/VideoStatusHandler.class
+edu/esipe/i3/ezipflix/frontend/data/services/VideoConversion.class

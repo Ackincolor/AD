@@ -1,0 +1,47 @@
+
+
+### Generates the CSR
+openssl req -config ezip/openssl-ezip.cnf -new -sha256 \
+        -key ezip/private/ezip.key.pem -passin pass:ezip \
+        -out ezip/csr/ezip.csr.pem
+
+### Sign certificate: database updated is the index file
+openssl ca -config openssl.cnf -extensions v3_intermediate_ca \
+        -days 36500 -notext -md sha256 \
+        -in ../ezip/csr/ezip.csr.pem -passin pass:ezip \
+        -out ../ezip/certs/ezip.cert.pem
+
+### Creating Keystore for server
+openssl pkcs12 -export -in ezip/certs/ezip.cert.pem \
+        -CAfile ca/certs/ca.cert.pem \
+        -inkey ezip/private/ezip.key.pem \
+        -out keystore.pkcs12 \
+        -passin pass:ezip
+
+### -J-Duser.language=en absolutely needed in JDK 8 v151 (fucking bug).
+keytool -importcert -file ca/certs/ca.cert.pem \
+        -alias casignedezip -keystore truststore.jks  \
+        -storetype JKS \
+        -J-Duser.language=en \
+        -storepass ezipesi -trustcacerts
+
+openssl pkcs12 -export -inkey ezip/private/ezip.key.pem \
+        -in ezip/certs/ezip.cert.pem \
+        -name ezip \
+        -out ezip.p12
+
+# Generate a file to decrypt in WRSK
+openssl pkcs12 -export -inkey ezip/private/ezip.key.pem \
+        -in ezip/certs/ezip.cert.pem \
+        -out ezip.p12
+
+# For a private key usable in WRSHRK
+openssl rsa -in ezip.key.pem -out ezip-new.key.pem
+
+# This checks that key is WRSK compliant
+openssl pkcs12 -nodes -in file.p12 -out key.pem -nocerts
+
+# Generate a file to decrypt in WRSK
+openssl pkcs12 -export -inkey ezip/private/ezip-new.key.pem \
+        -in ezip/certs/ezip.cert.pem \
+        -out ezip.p12
