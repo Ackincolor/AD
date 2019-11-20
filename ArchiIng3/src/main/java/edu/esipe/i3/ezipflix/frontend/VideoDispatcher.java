@@ -22,6 +22,7 @@ import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.cloud.gcp.pubsub.core.PubSubTemplate;
 
 /**
  * Created by Gilles GIRAUD gil on 11/4/17.
@@ -29,7 +30,6 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 
 @SpringBootApplication
 @RestController
-@EnableRabbit
 @EnableWebSocket
 public class VideoDispatcher implements WebSocketConfigurer {
 
@@ -43,15 +43,16 @@ public class VideoDispatcher implements WebSocketConfigurer {
     //sudo rabbitmq-server start
     private static final Logger LOGGER = LoggerFactory.getLogger(VideoDispatcher.class);
 
-    @Value("${rabbitmq-server.credentials.username}") private String username;
+/*    @Value("${rabbitmq-server.credentials.username}") private String username;
     @Value("${rabbitmq-server.credentials.password}") private String password;
     @Value("${rabbitmq-server.credentials.vhost}") private String vhost;
     @Value("${rabbitmq-server.server}") private String host;
     @Value("${rabbitmq-server.port}") private String port;
     @Value("${conversion.messaging.rabbitmq.conversion-queue}") public  String conversionQueue;
     @Value("${conversion.messaging.rabbitmq.conversion-exchange}") public  String conversionExchange;
-
+*/
     @Autowired VideoConversion videoConversion;
+    //@Autowired PubSubTemplate pubSubTemplate;
     public static void main(String[] args) throws Exception {
         SpringApplication.run(VideoDispatcher.class, args);
     }
@@ -68,19 +69,20 @@ public class VideoDispatcher implements WebSocketConfigurer {
         final ConversionResponse response = new ConversionResponse();
         LOGGER.info("UUID = {}", response.getUuid().toString());
         videoConversion.save(request, response);
+	//pubSubTemplate.publish("my-topic",request.getPath());
 	System.out.println("request Post convert");
         return response;
     }
 
 
-    @Bean
+/*  @Bean
     ConnectionFactory connectionFactory() {
         final CachingConnectionFactory c = new CachingConnectionFactory(host, Integer.parseInt(port));
         c.setVirtualHost(vhost);
         c.setUsername(username);
         c.setPassword(password);
         return c;
-    }
+    }*/
 
     @Bean
     public WebSocketHandler videoStatusHandler() {

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.cloud.gcp.pubsub.core.PubSubTemplate;
 
 import java.util.UUID;
 
@@ -22,11 +23,12 @@ import java.util.UUID;
 @Service
 public class VideoConversion {
 
-    @Value("${conversion.messaging.rabbitmq.conversion-queue}") public  String conversionQueue;
-    @Value("${conversion.messaging.rabbitmq.conversion-exchange}") public  String conversionExchange;
+//    @Value("${conversion.messaging.rabbitmq.conversion-queue}") public  String conversionQueue;
+//    @Value("${conversion.messaging.rabbitmq.conversion-exchange}") public  String conversionExchange;
 
 
-    @Autowired RabbitTemplate rabbitTemplate;
+    //@Autowired RabbitTemplate rabbitTemplate;
+    @Autowired PubSubTemplate pubSubTemplate;
 
     @Autowired VideoConversionRepository videoConversionRepository;
 
@@ -47,7 +49,8 @@ public class VideoConversion {
 
         videoConversionRepository.save(conversion);
         final Message message = new Message(conversion.toJson().getBytes(), new MessageProperties());
-        rabbitTemplate.convertAndSend(conversionExchange, conversionQueue,  conversion.toJson());
+        //rabbitTemplate.convertAndSend(conversionExchange, conversionQueue,  conversion.toJson());
+        this.pubSubTemplate.publish("my-topic", conversion.toJson());
     }
 
 }
