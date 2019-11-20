@@ -1,0 +1,27 @@
+spring :
+  data :
+    mongodb :
+      host : 192.168.0.193
+      port : 27017
+      database : ezipflix
+      collections :
+        video-conversions : video_conversions
+conversion:
+  messaging :
+    video-status:
+      url: wss://172.31.249.161:42308/video_status
+#      url: ws://172.31.249.161:42308/video_status
+    rabbitmq :
+      conversion-exchange: video-conversion-exchange
+      conversion-queue: video-conversion-queue
+
+rabbitmq-server:
+  server: 192.168.0.192
+  port: 5672
+  credentials:
+    vhost: ezip         # sudo rabbitmqctl add_vhost ezip
+                        # sudo rabbitmqctl set_permissions -p ezip ezip ".*" ".*" ".*"
+    username: ezip      # sudo rabbitmqctl add_user ezip pize
+    password: pize
+
+
