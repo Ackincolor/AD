@@ -1,0 +1,11 @@
+pip==19.0.3
+setuptools==41.6.0
+six==1.13.0
+PyYAML=5.1.2
+ffmpy==0.2.2
+pika==1.1.0
+pymongo==3.9.0
+websocket-client==0.56.0
+gevent==1.4.0
+greenlet==0.4.15
+dnspython

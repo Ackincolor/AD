@@ -49,3 +49,7 @@ class Configuration(object):
 
     def get_video_status_callback_url(self):
         return self.configuration_data['conversion']['messaging']['video-status']['url']
+    def get_project_id(self):
+        return self.configuration_data['pubsub']['projectId']
+    def get_subscription_name(self):
+        return self.configuration_data['pubsub']['subscriptionName']

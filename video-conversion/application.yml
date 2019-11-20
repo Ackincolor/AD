@@ -14,7 +14,9 @@ conversion:
     rabbitmq :
       conversion-exchange: video-conversion-exchange
       conversion-queue: video-conversion-queue
-
+pubsub:
+  projectId: archidistri
+  subscriptionName: my-sub
 rabbitmq-server:
   server: 192.168.0.192
   port: 5672
