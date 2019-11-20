@@ -15,7 +15,7 @@ logging.basicConfig(format='%(asctime)s - %(levelname)s: %(message)s', level=log
 
 class VideoConversion(object):
     def __init__(self, _config_):
-        self.client = MongoClient(_config_.get_database_host(), _config_.get_database_port())
+        self.client = MongoClient(_config_.get_database_host())
         self.db = self.client[_config_.get_database_name()]
         self.video_conversion_collection = self.db[_config_.get_video_conversion_collection()]
         self.url = _config_.get_video_status_callback_url()

@@ -1,7 +1,7 @@
 spring :
   data :
     mongodb :
-      host : 192.168.0.193
+      host : mongodb+srv://archi:archi@archi-mogo-kqt4l.azure.mongodb.net/ezipflix?retryWrites=true&w=majority
       port : 27017
       database : ezipflix
       collections :
