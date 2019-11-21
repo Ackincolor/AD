@@ -36,7 +36,7 @@ jobs:
         java-version: openjdk@1.11
     
     - name: PubSub Key
-      working-directory: ./front
+      working-directory: ./ArchiIng3
       run:
         echo "$VIDEO_JSON" > "video-key.json" 
     - name: Show files
@@ -44,7 +44,7 @@ jobs:
         ls -la
         
     - name: Maven Build
-      working-directory: ./front
+      working-directory: ./ArchiIng3
       run:
         mvn package -B --file pom.xml     
          
