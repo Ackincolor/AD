@@ -9,7 +9,7 @@ spring :
 conversion:
   messaging :
     video-status:
-      url: wss://192.168.0.194:42308/video_status
+      url: wss://172.31.249.161:42308/video_status
 #      url: ws://172.31.249.161:42308/video_status
     rabbitmq :
       conversion-exchange: video-conversion-exchange
