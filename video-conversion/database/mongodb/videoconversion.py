@@ -8,6 +8,7 @@ import os
 import websocket
 import json
 import ssl
+from azure.storage.file import FileService,ContentSettings
 
 logging.basicConfig(format='%(asctime)s - %(levelname)s: %(message)s', level=logging.DEBUG)
 #  ffmpeg -i Game.of.Thrones.S07E07.1080p.mkv -vcodec mpeg4 -b 4000k -acodec mp2 -ab 320k converted.avi
@@ -20,6 +21,11 @@ class VideoConversion(object):
         self.video_conversion_collection = self.db[_config_.get_video_conversion_collection()]
         self.url = _config_.get_video_status_callback_url()
 
+        self.file_service = FileService(account_name=_config_.get_azure_name(),account_key=_config_.get_azure_key());
+    #test de l'ouverture pour azure storage
+        self.file = self.file_service.get_file_to_path("archidistriconverter",None,self.url,self.url);
+
+
 
     def find_one(self):
         conversion = self.video_conversion_collection.find_one()
@@ -27,7 +33,7 @@ class VideoConversion(object):
         id = conversion['_id']
         logging.info('id = %s, URI = %s',  id, uri  )
         ff = ffmpy.FFmpeg(
-                inputs={uri: None},
+                inputs=self.file,
                 outputs={'converted.avi' : '-flags +global_header -y -vcodec mpeg4 -b 4000k -acodec mp2 -ab 320k' }
             )
         logging.info("FFMPEG = %s", ff.cmd)
@@ -42,7 +48,7 @@ class VideoConversion(object):
         converted = _uri_.replace(".mkv", "-converted.avi")
         logging.info('ID = %s, URI = %s —› %s',  _id_, _uri_ , converted )
         ff = ffmpy.FFmpeg(
-                inputs={_uri_: None},
+                inputs=self.file,
                 outputs={converted : '-flags +global_header -y -vcodec mpeg4 -b 4000k -acodec mp2 -ab 320k' }
             )
         logging.info("FFMPEG = %s", ff.cmd)
@@ -63,4 +69,15 @@ class VideoConversion(object):
         #ws = websocket.create_connection(self.url)
         ws.send(json_payload);
         ws.close()
+
+    #send file to azure when conversion stoped
+    def send(self,_uri_):
+        self.file_service.create_file_from_path(
+            'archidistriconverter',
+            None,
+            _uri_,
+            _uri_,
+            content_settings=ContentSettings(content_type='File'))
+        )
+
 

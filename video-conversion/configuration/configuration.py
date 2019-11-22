@@ -8,9 +8,14 @@ class Configuration(object):
     def __init__(self):
         self.configuration_file = "./application.yml" # Euuuuuurk !
         self.configuration_data = None
+        self.azure_file = "/home/lois/pyWorker/azure.yml"
+        self.azure_data = None
 
         f = open(self.configuration_file, 'r')
         self.configuration_data = yaml.load(f.read())
+        f.close()
+        f = open(self.azure_file, 'r')
+        self.azure_data = yaml.load(f.read())
         f.close()
 
     def get_rabbitmq_host(self):
@@ -53,3 +58,7 @@ class Configuration(object):
         return self.configuration_data['pubsub']['projectId']
     def get_subscription_name(self):
         return self.configuration_data['pubsub']['subscriptionName']
+    def get_azure_name(self):
+        return self.azure_data['azure']['name']
+    def get_azure_key(self):
+        return self.azure_data['azure']['key']
