@@ -9,6 +9,7 @@ import websocket
 import json
 import ssl
 from azure.storage.file import FileService,ContentSettings
+import os
 
 logging.basicConfig(format='%(asctime)s - %(levelname)s: %(message)s', level=logging.DEBUG)
 #  ffmpeg -i Game.of.Thrones.S07E07.1080p.mkv -vcodec mpeg4 -b 4000k -acodec mp2 -ab 320k converted.avi
@@ -58,6 +59,9 @@ class VideoConversion(object):
 
         self.send(converted);
         #suppression des fichiers locaux
+        os.remove(_uri_)
+        os.remove(converted)
+
         self.video_conversion_collection.update({'_id' : _id_}, { '$set' : {'targetPath' : converted}})
         self.video_conversion_collection.update({'_id' : _id_}, { '$set' : {'tstamp' : time.time()  }})
 
@@ -68,7 +72,7 @@ class VideoConversion(object):
         json_payload = json.dumps(payload)
         logging.info("payload = %s", json_payload)
 
-        ws = websocket.create_connection(self.url, sslopt={"cert_reqs": ssl.CERT_REQUIRED, "ca_certs" : "ssl/ca/cert/ca.cert.pem"})
+        ws = websocket.create_connection(self.url, sslopt={"cert_reqs": ssl.CERT_REQUIRED, "ca_certs" : "/home/lois/PycharmProjects/video-conversion/ca.cert.pem"})
         #ws = websocket.create_connection(self.url)
         ws.send(json_payload);
         ws.close()
