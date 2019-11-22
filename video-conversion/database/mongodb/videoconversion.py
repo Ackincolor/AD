@@ -23,7 +23,7 @@ class VideoConversion(object):
 
         self.file_service = FileService(account_name=_config_.get_azure_name(),account_key=_config_.get_azure_key());
     #test de l'ouverture pour azure storage
-        self.file = self.file_service.get_file_to_path("archidistriconverter",None,self.url,self.url);
+
 
 
 
@@ -31,9 +31,10 @@ class VideoConversion(object):
         conversion = self.video_conversion_collection.find_one()
         uri = conversion['originPath']
         id = conversion['_id']
+        file = self.file_service.get_file_to_path("archidistriconverter", None, uri, uri);
         logging.info('id = %s, URI = %s',  id, uri  )
         ff = ffmpy.FFmpeg(
-                inputs=self.file,
+                inputs={uri : None},
                 outputs={'converted.avi' : '-flags +global_header -y -vcodec mpeg4 -b 4000k -acodec mp2 -ab 320k' }
             )
         logging.info("FFMPEG = %s", ff.cmd)
@@ -45,16 +46,18 @@ class VideoConversion(object):
         #    logging.info(d)
 
     def convert(self, _id_, _uri_):
+        file = self.file_service.get_file_to_path("archidistriconverter", None, _uri_, _uri_);
         converted = _uri_.replace(".mkv", "-converted.avi")
         logging.info('ID = %s, URI = %s —› %s',  _id_, _uri_ , converted )
         ff = ffmpy.FFmpeg(
-                inputs=self.file,
+                inputs={_uri_: None},
                 outputs={converted : '-flags +global_header -y -vcodec mpeg4 -b 4000k -acodec mp2 -ab 320k' }
             )
         logging.info("FFMPEG = %s", ff.cmd)
         ff.run()
 
-
+        self.send(converted);
+        #suppression des fichiers locaux
         self.video_conversion_collection.update({'_id' : _id_}, { '$set' : {'targetPath' : converted}})
         self.video_conversion_collection.update({'_id' : _id_}, { '$set' : {'tstamp' : time.time()  }})
 
@@ -65,7 +68,7 @@ class VideoConversion(object):
         json_payload = json.dumps(payload)
         logging.info("payload = %s", json_payload)
 
-        ws = websocket.create_connection(self.url, sslopt={"cert_reqs": ssl.CERT_REQUIRED, "ca_certs" : "ca.cert.pem"})
+        ws = websocket.create_connection(self.url, sslopt={"cert_reqs": ssl.CERT_REQUIRED, "ca_certs" : "ssl/ca/cert/ca.cert.pem"})
         #ws = websocket.create_connection(self.url)
         ws.send(json_payload);
         ws.close()
@@ -77,7 +80,7 @@ class VideoConversion(object):
             None,
             _uri_,
             _uri_,
-            content_settings=ContentSettings(content_type='File'))
+            content_settings=ContentSettings(content_type='File')
         )
 
 
