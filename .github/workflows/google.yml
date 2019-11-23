@@ -12,7 +12,7 @@ name: GCP Deploy
 on:
   push:
     branches:
-    - testActions
+    - master
 
 # Environment variables available to all jobs and steps in this workflow
 env:
@@ -20,9 +20,9 @@ env:
   GKE_EMAIL: ${{ secrets.GKE_EMAIL }}
   GITHUB_SHA: ${{ github.sha }}
   VIDEO_JSON: ${{ secrets.VIDEO_JSON }}
-  GKE_ZONE: europe-west1-c
-  GKE_CLUSTER: cluster-archi
-  IMAGE: frontConverter
+  GKE_ZONE: us-central1-a
+  GKE_CLUSTER: your-first-cluster-1
+  IMAGE: frontconverter
 
 jobs:
   build:
@@ -36,7 +36,7 @@ jobs:
         java-version: openjdk@1.11
     
     - name: PubSub Key
-      working-directory: ./front
+      working-directory: ./ArchiIng3
       run:
         echo "$VIDEO_JSON" > "video-key.json" 
     - name: Show files
@@ -44,7 +44,7 @@ jobs:
         ls -la
         
     - name: Maven Build
-      working-directory: ./front
+      working-directory: ./ArchiIng3
       run:
         mvn package -B --file pom.xml     
          
@@ -73,7 +73,7 @@ jobs:
       run: |        
         docker build -t gcr.io/"$GKE_PROJECT"/"$IMAGE":"$GITHUB_SHA" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
-          --build-arg GITHUB_REF="$GITHUB_REF" ./front/     
+          --build-arg GITHUB_REF="$GITHUB_REF" ./ArchiIng3   
     
     # Push the Docker image to Google Container Registry
     - name: Publish
