@@ -51,6 +51,7 @@ public class VideoConversion {
         final Message message = new Message(conversion.toJson().getBytes(), new MessageProperties());
         //rabbitTemplate.convertAndSend(conversionExchange, conversionQueue,  conversion.toJson());
         this.pubSubTemplate.publish("my-topic", conversion.toJson());
+	System.out.println(conversion.toJson());
     }
 
 }
