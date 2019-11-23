@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: video-front
-        image: gcr.io/eco-groove-259413/videofront:f1ef470f319092d2297b01fc9dfa288de89ad256
+        image: gcr.io/archidistri/frontconverter@sha256:bb9b6ea0538df6581d93075144a682878474e989248fc5156c212877eb00f673
         ports:
         - containerPort: 42308
           protocol: TCP
