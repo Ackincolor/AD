@@ -20,9 +20,9 @@ env:
   GKE_EMAIL: ${{ secrets.GKE_EMAIL }}
   GITHUB_SHA: ${{ github.sha }}
   VIDEO_JSON: ${{ secrets.VIDEO_JSON }}
-  GKE_ZONE: europe-west1-c
-  GKE_CLUSTER: cluster-archi
-  IMAGE: frontConverter
+  GKE_ZONE: us-central1-a
+  GKE_CLUSTER: your-first-cluster-1
+  IMAGE: frontconverter
 
 jobs:
   build:
