@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: video-front-deploy
+  labels:
+    app: video-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: video-front
+  template:
+    metadata:
+      labels:
+        app: video-front
+    spec:
+      containers:
+      - name: video-front
+        image: gcr.io/eco-groove-259413/videofront:f1ef470f319092d2297b01fc9dfa288de89ad256
+        ports:
+        - containerPort: 42308
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: video-front-service
+spec:
+  selector:
+    app: video-front
+  ports:
+    - port: 42308
+      targetPort: 42308
+      nodePort: 30008
+  type: LoadBalancer
