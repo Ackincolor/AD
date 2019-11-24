@@ -74,12 +74,7 @@ public class VideoDispatcher implements WebSocketConfigurer {
 	System.out.println("request Post convert");
         return response;
     }
-
-    @RequestMapping(method = RequestMethod.GET,
-                    value = "/")
-    public String index(){
-        return "index";
-    }
+    
 
 
 /*  @Bean
