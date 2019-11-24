@@ -92,6 +92,11 @@ public class VideoDispatcher implements WebSocketConfigurer {
 
     public void registerWebSocketHandlers(WebSocketHandlerRegistry webSocketHandlerRegistry) {
         webSocketHandlerRegistry.addHandler(videoStatusHandler(), "/video_status").setAllowedOrigins("*");
+        webSocketHandlerRegistry.addHandler(conversionStatusHandler(), "/conversion_status").setAllowedOrigins("*");
+    }
+
+    private WebSocketHandler conversionStatusHandler() {
+        return new ConversionStatusHandler();
     }
 
 
