@@ -1,10 +1,10 @@
 server :
   port : 42308
-#  ssl:
-#    enabled: true
-#    key-store: "ssl/keystore.pkcs12"
-#    key-store-password: ezip
-#    keyStoreType: PKCS12
+  ssl:
+    enabled: true
+    key-store: "ssl/keystore.pkcs12"
+    key-store-password: ezip
+    keyStoreType: PKCS12
 
 spring :
   data :
