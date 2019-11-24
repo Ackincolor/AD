@@ -75,6 +75,12 @@ public class VideoDispatcher implements WebSocketConfigurer {
         return response;
     }
 
+    @RequestMapping(method = RequestMethod.GET,
+                    value = "/")
+    public String index(){
+        return "index"
+    }
+
 
 /*  @Bean
     ConnectionFactory connectionFactory() {
