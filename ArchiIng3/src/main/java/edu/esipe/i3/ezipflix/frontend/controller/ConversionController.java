@@ -6,10 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequestMapping(value = {"/ui"})
 public class ConversionController {
 
     @GetMapping("/")
-    public String greeting() {
+    public String index() {
         return "index";
     }
 

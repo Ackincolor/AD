@@ -32,6 +32,7 @@ import org.springframework.cloud.gcp.pubsub.core.PubSubTemplate;
 @RestController
 @EnableWebSocket
 @CrossOrigin
+@ComponentScan(basePackages = {"edu.esipe.i3.ezipflix.frontend"})
 public class VideoDispatcher implements WebSocketConfigurer {
 
     // rabbitmqadmin -H localhost -u ezip -p pize -V ezip delete queue name=video-conversion-queue
