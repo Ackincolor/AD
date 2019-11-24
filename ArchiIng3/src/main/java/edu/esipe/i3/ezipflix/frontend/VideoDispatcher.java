@@ -78,7 +78,7 @@ public class VideoDispatcher implements WebSocketConfigurer {
     @RequestMapping(method = RequestMethod.GET,
                     value = "/")
     public String index(){
-        return "index"
+        return "index";
     }
 
 
