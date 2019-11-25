@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
       - name: video-back
-        image: gcr.io/archidistr/backconverter:f1ef470f319092d2297b01fc9dfa288de89ad256
+        image: gcr.io/archidistri/backconverter:f1ef470f319092d2297b01fc9dfa288de89ad256
