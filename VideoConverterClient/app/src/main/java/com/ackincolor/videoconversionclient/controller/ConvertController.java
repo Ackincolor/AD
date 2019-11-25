@@ -59,8 +59,8 @@ public class ConvertController {
         });
     }
     private void getStatus(final String uuid){
-        OkHttpClient clientStatus = new OkHttpClient();
-        Request requestCoinPrice = new Request.Builder().url(BASE_URL+"/conversion_status").build();
+        OkHttpClient clientStatus =  UnsafeOkHttpClient.getUnsafeOkHttpClient();
+        Request requestStatus = new Request.Builder().url(BASE_URL+"/conversion_status").build();
         WebSocketListener webSocketListenerStatus = new WebSocketListener() {
             String TAG = "DEBUG";
 
@@ -95,11 +95,12 @@ public class ConvertController {
 
             @Override
             public void onClosed(WebSocket webSocket, int code, String reason) {
+                System.out.println("socket closed :"+reason);
                 //TODO: stuff
             }
         };
 
-        clientStatus.newWebSocket(requestCoinPrice, webSocketListenerStatus);
+        clientStatus.newWebSocket(requestStatus, webSocketListenerStatus);
         clientStatus.dispatcher().executorService().shutdown();
     }
 }

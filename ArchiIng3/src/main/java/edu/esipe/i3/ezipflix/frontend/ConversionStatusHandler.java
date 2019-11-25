@@ -27,7 +27,7 @@ public class ConversionStatusHandler extends TextWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        VideoConversions vc = videoConversionRepository.findById(UUID.fromString(message.getPayload())).get();
+        //VideoConversions vc = videoConversionRepository.findById(UUID.fromString(message.getPayload())).get();
         LOGGER.info("Status = {}", message.getPayload());
     }
 }
