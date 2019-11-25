@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         //appel de l'api
         final ConvertController cc = new ConvertController(this);
         Button start = findViewById(R.id.convert);
+        this.status = findViewById(R.id.status);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

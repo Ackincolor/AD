@@ -48,7 +48,7 @@ public class ConvertController {
                     v.setStatusConversion("conversion demmarée");
                     System.out.println(response.body());
                     //ouverture du websocket
-
+                    getStatus(response.body().get("uuid").getAsString());
                 }
             }
 
@@ -60,7 +60,7 @@ public class ConvertController {
     }
     private void getStatus(final String uuid){
         OkHttpClient clientStatus = new OkHttpClient();
-        Request requestCoinPrice = new Request.Builder().url(BASE_URL+"").build();
+        Request requestCoinPrice = new Request.Builder().url(BASE_URL+"/conversion_status").build();
         WebSocketListener webSocketListenerStatus = new WebSocketListener() {
             String TAG = "DEBUG";
 
