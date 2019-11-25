@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: video-back-deploy
+  labels:
+    app: video-back
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: video-back
+  template:
+    metadata:
+      labels:
+        app: video-back
+    spec:
+      containers:
+      - name: video-back
+        image: gcr.io/archidistr/python-converter:f1ef470f319092d2297b01fc9dfa288de89ad256
