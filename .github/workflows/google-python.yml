@@ -41,12 +41,7 @@ jobs:
         echo "$VIDEO_JSON" > "video-key.json" 
     - name: Show files
       run:
-        ls -la
-        
-    - name: Maven Build
-      working-directory: ./video-conversion
-      run:
-        mvn package -B --file pom.xml     
+        ls -la    
          
    # Setup gcloud CLI
     - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
