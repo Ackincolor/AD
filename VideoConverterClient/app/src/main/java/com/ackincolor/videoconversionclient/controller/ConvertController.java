@@ -2,6 +2,7 @@ package com.ackincolor.videoconversionclient.controller;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.ackincolor.videoconversionclient.MainActivity;
 import com.ackincolor.videoconversionclient.UnsafeOkHttpClient;
@@ -10,6 +11,8 @@ import com.ackincolor.videoconversionclient.services.ConverterService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+
+import java.text.ParseException;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -25,10 +28,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ConvertController {
     private final String BASE_URL = "https://35.224.228.254:42308";
     final private MainActivity v;
+    private ProgressBar progressBar;
     public ConvertController(MainActivity v){
         this.v = v;
     }
-    public void start(String path){
+    public void start(String path,ProgressBar progressBar){
+        this.progressBar = progressBar;
         OkHttpClient okHttpClient = UnsafeOkHttpClient.getUnsafeOkHttpClient();
         Gson gson = new GsonBuilder().serializeNulls().create();
         Retrofit retrofit = new Retrofit.Builder()
@@ -66,7 +71,7 @@ public class ConvertController {
 
             @Override
             public void onOpen(WebSocket webSocket, okhttp3.Response response) {
-                webSocket.send("07e456b5-7526-49a0-8726-df2b8fef93d2");
+                webSocket.send(uuid);
                 Log.e(TAG, "onOpen");
                 //webSocket.send(uuid);
                 super.onOpen(webSocket, response);
@@ -80,6 +85,15 @@ public class ConvertController {
             @Override
             public void onMessage(WebSocket webSocket, String text) {
                 Log.e(TAG, "MESSAGE: Avancement :" + text);
+                try {
+                    Float avancement = Float.parseFloat(text);
+                    progressBar.setProgress(avancement.intValue());
+                    webSocket.send(uuid);
+                    if(avancement>=100)
+                        webSocket.close(1000,null);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
 
             @Override
