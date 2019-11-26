@@ -27,7 +27,7 @@ class FileClientProvider {
         // Retrieve the connection string
         Properties prop = new Properties();
         try {
-            InputStream propertyStream = FileBasics.class.getClassLoader().getResourceAsStream("config.properties");
+            InputStream propertyStream = VideoDispatcher.class.getClassLoader().getResourceAsStream("config.properties");
             if (propertyStream != null) {
                 prop.load(propertyStream);
             }
