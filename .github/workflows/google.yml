@@ -24,6 +24,7 @@ env:
   VIDEO_JSON: ${{ secrets.VIDEO_JSON }}
   GKE_ZONE: us-central1-a
   GKE_CLUSTER: your-first-cluster-1
+  AZURE_STRING: ${{ secrets.AZURE_STRING }}
   IMAGE: frontconverter
 
 jobs:
