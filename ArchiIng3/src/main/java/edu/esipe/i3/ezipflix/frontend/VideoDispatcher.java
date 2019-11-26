@@ -25,6 +25,15 @@ import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 import org.springframework.cloud.gcp.pubsub.core.PubSubTemplate;
 
+import com.microsoft.azure.storage.CloudStorageAccount;
+import com.microsoft.azure.storage.StorageException;
+import com.microsoft.azure.storage.file.CloudFile;
+import com.microsoft.azure.storage.file.CloudFileClient;
+import com.microsoft.azure.storage.file.CloudFileDirectory;
+import com.microsoft.azure.storage.file.CloudFileShare;
+import com.microsoft.azure.storage.file.CopyStatus;
+import com.microsoft.azure.storage.file.FileRange;
+import com.microsoft.azure.storage.file.ListFileItem;
 /**
  * Created by Gilles GIRAUD gil on 11/4/17.
  */
@@ -76,6 +85,17 @@ public class VideoDispatcher implements WebSocketConfigurer {
 	System.out.println("request Post convert");
         return response;
     }
+    @RequestMapping(method = RequestMethod.GET,
+                value = "/directories")
+    public String requestiFilesList() throws JsonProcessingException {
+        CloudFileClient fileClient = FileClientProvider.getFileClientReference();
+        for (CloudFileShare share : fileClient.listShares("storagearchidistri")) {
+            System.out.println(String.format("\tFile Share: %s", share.getName()));
+            enumerateDirectoryContents(share.getRootDirectoryReference());
+        }
+        return "blabla"
+
+    }
     
 
 
@@ -125,5 +145,17 @@ public class VideoDispatcher implements WebSocketConfigurer {
 //        template.setQueue(conversionQueue);
 //        return template;
 //    }
+    private static String enumerateDirectoryContents(CloudFileDirectory rootDir) throws StorageException {
+
+        Iterable<ListFileItem> results = rootDir.listFilesAndDirectories();
+        for (Iterator<ListFileItem> itr = results.iterator(); itr.hasNext(); ) {
+            ListFileItem item = itr.next();
+            boolean isDirectory = item.getClass() == CloudFileDirectory.class;
+            System.out.println(String.format("\t\t%s: %s", isDirectory ? "Directory " : "File      ", item.getUri().toString()));
+            if (isDirectory == true) {
+            	System.out.println("is a directory");
+            }
+        }
+    }
 
 }

@@ -119,7 +119,7 @@ class VideoConversion(object):
         os.remove(_uri_)
         os.remove(converted)
 
-        self.video_conversion_collection.update({'_id': _id_}, {'$set': {'targetPath': converted}})
+        self.video_conversion_collection.update({'_id': _id_}, {'$set': {'targetPath': "Converted/"+converted}})
         # self.video_conversion_collection.update({'_id' : _id_}, { '$set' : {'tstamp' : time.time()  }})
 
         payload = dict()
@@ -139,7 +139,7 @@ class VideoConversion(object):
     def send(self, _uri_):
         self.file_service.create_file_from_path(
             'archidistriconverter',
-            None,
+            'Converted',
             _uri_,
             _uri_,
             content_settings=ContentSettings(content_type='File')
