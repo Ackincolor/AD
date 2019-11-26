@@ -31,8 +31,8 @@ public class ConversionStatusHandler extends TextWebSocketHandler {
         String msg = message.getPayload();
         UUID id = UUID.fromString(msg);
         VideoConversions vc = null;
-        if(videoConversionRepository.findById(id).isPresent()) {
-            vc = videoConversionRepository.findById(id).get();
+        if(videoConversionRepository.findById(msg).isPresent()) {
+            vc = videoConversionRepository.findById(msg).get();
             session.sendMessage(new TextMessage(Float.toString(vc.getDone())));
         }else {
             LOGGER.info("convert not found");

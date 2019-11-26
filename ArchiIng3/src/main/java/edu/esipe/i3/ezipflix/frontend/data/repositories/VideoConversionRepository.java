@@ -10,5 +10,5 @@ import java.util.UUID;
  * Created by Gilles GIRAUD gil on 11/4/17.
  */
 @Repository
-public interface VideoConversionRepository extends MongoRepository<VideoConversions, UUID> {
+public interface VideoConversionRepository extends MongoRepository<VideoConversions, String> {
 }
