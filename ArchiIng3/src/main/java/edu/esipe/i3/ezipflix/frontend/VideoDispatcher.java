@@ -103,10 +103,15 @@ public class VideoDispatcher implements WebSocketConfigurer {
     @RequestMapping(method = RequestMethod.GET,
                 value = "/directories")
     public String requestiFilesList() throws JsonProcessingException {
-        CloudFileClient fileClient = FileClientProvider.getFileClientReference();
-        for (CloudFileShare share : fileClient.listShares("storagearchidistri")) {
-            System.out.println(String.format("\tFile Share: %s", share.getName()));
-            enumerateDirectoryContents(share.getRootDirectoryReference());
+        try{
+            CloudFileClient fileClient = FileClientProvider.getFileClientReference();
+            for (CloudFileShare share : fileClient.listShares("storagearchidistri")) {
+                System.out.println(String.format("\tFile Share: %s", share.getName()));
+                enumerateDirectoryContents(share.getRootDirectoryReference());
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            return "error";
         }
         return "blablabli";
 
@@ -171,6 +176,7 @@ public class VideoDispatcher implements WebSocketConfigurer {
             	System.out.println("is a directory");
             }
         }
+        return "okokokok";
     }
 
 }
