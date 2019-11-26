@@ -24,6 +24,7 @@ env:
   VIDEO_JSON: ${{ secrets.VIDEO_JSON }}
   GKE_ZONE: us-central1-a
   GKE_CLUSTER: your-first-cluster-1
+  AZURE_STRING: ${{ secrets.AZURE_STRING }}
   IMAGE: frontconverter
 
 jobs:
@@ -37,13 +38,11 @@ jobs:
       with:
         java-version: openjdk@1.11
     
-    - name: PubSub Key
+    - name: PubSub Key && azure
       working-directory: ./ArchiIng3
       run:
         echo "$VIDEO_JSON" > "video-key.json" 
-    - name: Show files
-      run:
-        ls -la
+        echo "$AZURE_STRING" > "/src/main/resources/config.properties"
         
     - name: Maven Build
       working-directory: ./ArchiIng3
