@@ -28,6 +28,10 @@ public class ConversionStatusHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         //VideoConversions vc = videoConversionRepository.findById(UUID.fromString(message.getPayload())).get();
-        LOGGER.info("Status = {}", message.getPayload());
+        String msg = message.getPayload();
+        System.out.println(msg);
+        VideoConversions vc = videoConversionRepository.findById(UUID.fromString(msg)).get();
+        LOGGER.info("Status = {}", msg);
+        session.sendMessage(new TextMessage(Float.toString(vc.getDone())));
     }
 }

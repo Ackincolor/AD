@@ -68,6 +68,7 @@ public class ConvertController {
             public void onOpen(WebSocket webSocket, okhttp3.Response response) {
                 webSocket.send(uuid);
                 Log.e(TAG, "onOpen");
+                webSocket.send(uuid);
                 super.onOpen(webSocket, response);
             }
 
@@ -78,7 +79,7 @@ public class ConvertController {
 
             @Override
             public void onMessage(WebSocket webSocket, String text) {
-                Log.e(TAG, "MESSAGE: " + text);
+                Log.e(TAG, "MESSAGE: Avancement :" + text);
             }
 
             @Override

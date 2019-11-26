@@ -19,6 +19,7 @@ public class VideoConversions {
     private String uuid;
     private String originPath;
     private String targetPath;
+    private float done;
 
     public VideoConversions() {
     }
@@ -27,6 +28,7 @@ public class VideoConversions {
         this.uuid = uuid;
         this.originPath = originPath;
         this.targetPath = targetPath;
+        this.done=0;
     }
 
     public String getUuid() {
@@ -51,6 +53,12 @@ public class VideoConversions {
 
     public void setTargetPath(String targetPath) {
         this.targetPath = targetPath;
+    }
+    public void setDone(Float done){
+        this.done = done;
+    }
+    public Float getDone(){
+        return this.done;
     }
 
     public String toJson() throws JsonProcessingException {
