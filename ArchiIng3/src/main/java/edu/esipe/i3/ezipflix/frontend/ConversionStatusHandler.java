@@ -29,9 +29,15 @@ public class ConversionStatusHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         //VideoConversions vc = videoConversionRepository.findById(UUID.fromString(message.getPayload())).get();
         String msg = message.getPayload();
-        System.out.println(msg);
-        VideoConversions vc = videoConversionRepository.findById(UUID.fromString(msg)).get();*
+        UUID id = UUID.fromString(msg);
+        VideoConversions vc = null;
+        if(videoConversionRepository.findById(id).isPresent()) {
+            vc = videoConversionRepository.findById(id).get();
+            session.sendMessage(new TextMessage(Float.toString(vc.getDone())));
+        }else {
+            LOGGER.info("convert not found");
+            session.sendMessage(new TextMessage("not found"));
+        }
         LOGGER.info("Status = {}", msg);
-        session.sendMessage(new TextMessage(Float.toString(vc.getDone())));
     }
 }
