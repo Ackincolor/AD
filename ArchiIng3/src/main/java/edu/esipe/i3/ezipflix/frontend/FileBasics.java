@@ -1,44 +1,4 @@
-
-Skip to content
-Pull requests
-Issues
-Marketplace
-Explore
-@Ackincolor
-This repository has been archived by the owner. It is now read-only.
-
-24
-5
-
-    13
-
-Azure-Samples/storage-file-java-getting-started Archived
-Code
-Issues 0
-Pull requests 0
-Actions
-Projects 0
-Wiki
-Security
-Insights
-storage-file-java-getting-started/src/FileBasics.java
-Pedro Wood added P2 samples 25990f4 on 25 Aug 2016
-326 lines (288 sloc) 16.4 KB
-//----------------------------------------------------------------------------------
-// Microsoft Developer & Platform Evangelism
-//
-// Copyright (c) Microsoft Corporation. All rights reserved.
-//
-// THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
-// EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES
-// OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
-//----------------------------------------------------------------------------------
-// The example companies, organizations, products, domain names,
-// e-mail addresses, logos, people, places, and events depicted
-// herein are fictitious.  No association with any real company,
-// organization, product, domain name, email address, logo, person,
-// places, or events is intended or should be inferred.
-//----------------------------------------------------------------------------------
+package edu.esipe.i3.ezipflix.frontend;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -350,18 +310,4 @@ public class FileBasics {
         }
     }
 }
-
-    © 2019 GitHub, Inc.
-    Terms
-    Privacy
-    Security
-    Status
-    Help
-
-    Contact GitHub
-    Pricing
-    API
-    Training
-    Blog
-    About
 
