@@ -93,7 +93,7 @@ public class VideoDispatcher implements WebSocketConfigurer {
             System.out.println(String.format("\tFile Share: %s", share.getName()));
             enumerateDirectoryContents(share.getRootDirectoryReference());
         }
-        return "blabla"
+        return "blabla";
 
     }
     
