@@ -66,9 +66,9 @@ public class ConvertController {
 
             @Override
             public void onOpen(WebSocket webSocket, okhttp3.Response response) {
-                webSocket.send(uuid);
+                webSocket.send("07e456b5-7526-49a0-8726-df2b8fef93d2");
                 Log.e(TAG, "onOpen");
-                webSocket.send(uuid);
+                //webSocket.send(uuid);
                 super.onOpen(webSocket, response);
             }
 

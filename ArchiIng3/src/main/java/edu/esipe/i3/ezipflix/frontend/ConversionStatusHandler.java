@@ -30,7 +30,7 @@ public class ConversionStatusHandler extends TextWebSocketHandler {
         //VideoConversions vc = videoConversionRepository.findById(UUID.fromString(message.getPayload())).get();
         String msg = message.getPayload();
         System.out.println(msg);
-        VideoConversions vc = videoConversionRepository.findById(UUID.fromString(msg)).get();
+        VideoConversions vc = videoConversionRepository.findById(UUID.fromString(msg)).get();*
         LOGGER.info("Status = {}", msg);
         session.sendMessage(new TextMessage(Float.toString(vc.getDone())));
     }
