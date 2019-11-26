@@ -43,7 +43,10 @@ jobs:
       run:
         echo "$VIDEO_JSON" > "video-key.json" 
         ls -la /src/main
-        echo "$AZURE_STRING" > "/src/main/resources/config.properties"
+    - name: Azure Key
+      working-directory: ./ArchiIng3/src/main/resources/
+      run:
+        echo "$AZURE_STRING" > "config.properties"
         
     - name: Maven Build
       working-directory: ./ArchiIng3
