@@ -44,7 +44,7 @@ jobs:
         echo "$VIDEO_JSON" > "video-key.json" 
         ls -la /src/main
     - name: Azure Key
-      working-directory: ./ArchiIng3/src/main/resources/
+      working-directory: ./ArchiIng3
       run:
         echo "$AZURE_STRING" > "config.properties"
         

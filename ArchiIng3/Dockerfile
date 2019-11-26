@@ -3,6 +3,7 @@ WORKDIR /source
 COPY target/video-dispatcher-1.0-SNAPSHOT.jar /source/app.jar
 COPY ssl/keystore.pkcs12 /source/ssl/keystore.pkcs12
 COPY video-key.json /source/ArchiDistri.json
+COPY config.properties /source/src/main/resources/config.properties
 ENV GOOGLE_APPLICATION_CREDENTIALS=key.json
 RUN chmod 777 -R /source
 EXPOSE 42308

@@ -1,3 +1,6 @@
+package edu.esipe.i3.ezipflix.frontend;
+
+
 import com.microsoft.azure.storage.CloudStorageAccount;
 import com.microsoft.azure.storage.file.CloudFileClient;
 
