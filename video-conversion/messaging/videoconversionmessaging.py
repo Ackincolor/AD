@@ -32,46 +32,8 @@ class VideoConversionMessaging(Thread):
         print('listening fo message on {}'.format(subsciption_path))
         while True:
             time.sleep(60)
-#     def __init__(self, _config_, converting_service):
-#         Thread.__init__(self)
-#         self.credentials = pika.credentials.PlainCredentials(
-#                                 _config_.get_rabbitmq_username(),
-#                                 _config_.get_rabbitmq_password())
-#         self.connection = pika.BlockingConnection(
-#                             pika.ConnectionParameters(
-#                                 _config_.get_rabbitmq_host(),
-#                                 _config_.get_rabbitmq_port(),
-#                                 _config_.get_rabbitmq_vhost(),
-#                                 self.credentials))
-#         self.channel = self.connection.channel()
-#         self.rmq = _config_.get_messaging_conversion_queue()
-#         # self.channel.basic_consume(self.on_message, self.rmq, no_ack=True)
-#         self.converting_service = converting_service
-#         self.consuming = "_CONSUMING_"
-#         self.rendez_vous = queue.Queue(1)
-#         self.pause = queue.Queue(1)
-#         self.start()
 #
-#     def run(self):
-#         while True : # "_CONSUMING_" == self.consuming :
-# #            logging.info("Starts consuming on message bus before RDV")
-# #            self.channel.start_consuming()
-# #            logging.info("WAITING Rendez-Vous")
-# #            self.rendez_vous.get()
-# #            logging.info("Rendez-Vous")
-# #            self.channel = self.connection.channel()
-# #            self.channel.basic_consume(self.on_message, self.rmq, no_ack=True)
-#             if "_CONSUMING_" == self.consuming :
-#                 method, prop, body = self.channel.basic_get(self.rmq, auto_ack=True)
-#                 if body :
-#                     self._on_message_(body)
-#                     pass
-#                 else :
-#                     try :
-#                         self.pause.get(timeout=1)
-#                     except queue.Empty :
-#                         pass
-#                     # self._on_message_(message)
+#
 #
 #
 #     def on_message(self, channel, method_frame, header_frame, body):
@@ -93,17 +55,4 @@ class VideoConversionMessaging(Thread):
 #
 #
 #
-#     def stop_consuming(self):
-#         logging.info("Stops consuming on message bus")
-#         # self.channel.stop_consuming()
-#         self.consuming = "_IDLE_"
-#
-#     def start_consuming(self):
-#         logging.info("Starts consuming on message bus")
-#         #self.channel.start_consuming()
-#         # self.rendez_vous.put("_CONSUMING_")
-#         self.consuming = "_CONSUMING_"
-#         # self.start()
-#
-#     def is_consuming(self):
-#         return self.consuming
+
