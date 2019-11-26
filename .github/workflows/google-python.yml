@@ -11,7 +11,7 @@
 name: GCP Deploy python
 on:
   push:
-    path:
+    paths:
     - 'video-conversion/**'
     branches:
     - master
