@@ -11,7 +11,7 @@
 name: GCP Deploy
 on:
   push:
-    path:
+    paths:
     - 'ArchiIng3/**'
     branches:
     - master
