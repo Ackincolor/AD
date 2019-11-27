@@ -33,11 +33,12 @@ public class ConversionStatusHandler extends TextWebSocketHandler {
         VideoConversions vc = null;
         if(videoConversionRepository.findById(msg).isPresent()) {
             vc = videoConversionRepository.findById(msg).get();
-            if(vc.getTargetPath() == "" || vc.getDone()<100)
+            if(vc.getDone()<100)
                 session.sendMessage(new TextMessage(Float.toString(vc.getDone())));
             else{
                 session.sendMessage(new TextMessage(Float.toString(vc.getDone())));
                 session.sendMessage(new TextMessage(vc.getTargetPath()));
+                msg += " target Path = "+vc.getTargetPath();
             }
         }else {
             LOGGER.info("convert not found");
