@@ -37,7 +37,7 @@ public class ConversionStatusHandler extends TextWebSocketHandler {
                 session.sendMessage(new TextMessage(Float.toString(vc.getDone())));
             else{
                 session.sendMessage(new TextMessage(Float.toString(vc.getDone())));
-                session.sendMessage(new TextMessage(Float.toString(vc.getTargetPath())));
+                session.sendMessage(new TextMessage(vc.getTargetPath()));
             }
         }else {
             LOGGER.info("convert not found");
