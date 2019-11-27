@@ -20,11 +20,15 @@ package "Android APP" {
 }
 package "Azure Cloud" {
     [azure file storage]
-    database "mongodb"
+    database "mongodb" as mongo
 }
 
 
-[vc-client] -> [video-dispatcher]
+[vc-client] -> [video-dispatcher] : https
+[vc-client] -> [video-dispatcher] : websocket
 [azure file storage] -> [video converter]
-[video-dispatcher] -> "mongodb"
+[video converter] -> mongo
+[video-dispatcher] -> mongo
+[video converter] --> [video-dispatcher] : websocket
+[video-dispatcher] --> [azure file storage]
 @enduml
