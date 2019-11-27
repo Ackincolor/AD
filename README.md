@@ -28,7 +28,46 @@
 
 8 ) développement d'un client Lourd (Pour le moment)
 
+​		8.A ) Appel de l'API pour lancer une conversion
+
+​		9.B ) Récupération de avancement
+
+​		9.C ) Récupération du nom du fichier.
+
 ### Difficultés :
+
+Récupération de l'avancement de la conversion (Python) :
+
+```python
+while (not re.compile('^Press').match(line)):
+    i = i + 1
+    line = thread.readline().strip().decode('utf-8')
+    if (re.compile('^Duration').match(line)):
+        duration_total = self.timecode_value(line.split(',')[0].split(' ')[1])
+        #recuperation de la durée total de la vidéo
+
+cpl = thread.compile_pattern_list([
+    pexpect.EOF,
+    "^(frame=.*)",
+    '(.+)'
+])
+while True:
+    i = thread.expect_list(cpl, timeout=None)
+    if i == 0:  # EOF
+        #....
+        #conversion terminée
+        break
+    elif i == 1:
+        try:
+            #....
+            # calcul(current_time / duration_total * 100)
+            print("Avancement : %.2f" % percentage)
+       
+    elif i == 2:
+        # ....
+        # ligne non reconnu
+        pass
+```
 
 
 
