@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.ackincolor.videoconversionclient.MainActivity;
 import com.ackincolor.videoconversionclient.UnsafeOkHttpClient;
@@ -37,11 +38,13 @@ public class ConvertController {
     private final String BASE_URL = "https://35.224.228.254:42308";
     final private MainActivity v;
     private ProgressBar progressBar;
+    private TextView textView;
     public ConvertController(MainActivity v){
         this.v = v;
     }
-    public void start(String path,ProgressBar progressBar){
+    public void start(String path, ProgressBar progressBar, TextView textView){
         this.progressBar = progressBar;
+        this.textView = textView;
         OkHttpClient okHttpClient = UnsafeOkHttpClient.getUnsafeOkHttpClient();
         Gson gson = new GsonBuilder().serializeNulls().create();
         Retrofit retrofit = new Retrofit.Builder()
@@ -99,7 +102,12 @@ public class ConvertController {
                     webSocket.send(uuid);
                     if(avancement>=100)
                         webSocket.close(1000,null);
-                }catch (Exception e){
+                }catch (NumberFormatException e){
+                    String targetPath = text;
+                    textView.setText(targetPath);
+                    progressBar.setProgress(100);
+                    webSocket.close(1000,null);
+                }catch(Exception e){
                     e.printStackTrace();
                 }
             }
