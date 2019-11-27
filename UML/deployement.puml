@@ -12,6 +12,9 @@ package "Google CLoud" {
             [video converter]
         }
     }
+    folder "pubsub" {
+        queue "pubsub channel" as ps
+    }
 }
 package "Android APP" {
     node "Android" {
@@ -31,4 +34,6 @@ package "Azure Cloud" {
 [video-dispatcher] -> mongo
 [video converter] --> [video-dispatcher] : websocket
 [video-dispatcher] --> [azure file storage]
+ps --> [video converter]
+ps --> [video-dispatcher]
 @enduml
