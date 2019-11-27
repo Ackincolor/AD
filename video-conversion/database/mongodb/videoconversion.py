@@ -84,6 +84,7 @@ class VideoConversion(object):
             i = thread.expect_list(cpl, timeout=None)
             if i == 0:  # EOF
                 self.video_conversion_collection.update({'_id': _id_}, {'$set': {'done': 100}})
+                self.video_conversion_collection.update({'_id': _id_}, {'$set': {'targetPath': "Converted/"+converted}})
                 print("the sub process exited")
                 break
             elif i == 1:
@@ -119,7 +120,6 @@ class VideoConversion(object):
         os.remove(_uri_)
         os.remove(converted)
 
-        self.video_conversion_collection.update({'_id': _id_}, {'$set': {'targetPath': "Converted/"+converted}})
         # self.video_conversion_collection.update({'_id' : _id_}, { '$set' : {'tstamp' : time.time()  }})
 
         payload = dict()
