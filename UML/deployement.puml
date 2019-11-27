@@ -18,6 +18,13 @@ package "Android APP" {
         [vc-client]
     }
 }
+package "Azure Cloud" {
+    [azure file storage]
+    database "mongodb"
+}
+
 
 [vc-client] -> [video-dispatcher]
+[azure file storage] -> [video converter]
+[video-dispatcher] -> "mongodb"
 @enduml

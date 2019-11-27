@@ -103,7 +103,7 @@ while True:
        
     elif i == 2:
         # ....
-        # ligne non reconnu
+        # ligne inutile
         pass
 ```
 
