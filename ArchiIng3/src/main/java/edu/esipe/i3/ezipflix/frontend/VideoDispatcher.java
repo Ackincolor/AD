@@ -104,19 +104,30 @@ public class VideoDispatcher implements WebSocketConfigurer {
                 value = "/directories")
     public String requestiFilesList() throws JsonProcessingException {
         ArrayList<String> liste = new ArrayList<>();
+        String json = "";
         try{
             CloudFileClient fileClient = FileClientProvider.getFileClientReference();
             CloudFileShare share = fileClient.getShareReference("archidistriconverter");
             CloudFileDirectory rootDir = share.getRootDirectoryReference();
             for ( ListFileItem fileItem : rootDir.listFilesAndDirectories() ) {
                 System.out.println(fileItem.getUri());
-                liste.add(fileItem.getUri().toString());
+                //si c'est un repertoir
+                if(item.getClass() == CloudFileDirectory.class)
+                {
+
+                }else{
+                    String[] arrayOfString = fileItem.getUri().toString().split("/");
+                    String name = arrayOfString[arrayOfString.length-1];
+                    liste.add(name);
+                }
+                ObjectMapper objectMapper = new ObjectMapper();
+                json = objectMapper.writeValueAsString(liste);
             }
         }catch(Exception e){
             e.printStackTrace();
             return "error";
         }
-        return "blablabli";
+        return json;
 
     }
     
@@ -168,5 +179,18 @@ public class VideoDispatcher implements WebSocketConfigurer {
 //        template.setQueue(conversionQueue);
 //        return template;
 //    }
+
+    private static void enumerateDirectoryContents(CloudFileDirectory rootDir) throws StorageException {
+
+        Iterable<ListFileItem> results = rootDir.listFilesAndDirectories();
+        for (Iterator<ListFileItem> itr = results.iterator(); itr.hasNext(); ) {
+            ListFileItem item = itr.next();
+            boolean isDirectory = item.getClass() == CloudFileDirectory.class;
+            System.out.println(String.format("\t\t%s: %s", isDirectory ? "Directory " : "File      ", item.getUri().toString()));
+            if (isDirectory == true) {
+            	enumerateDirectoryContents((CloudFileDirectory) item);
+            }
+        }
+    }
 
 }
