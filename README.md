@@ -107,7 +107,7 @@ while True:
         pass
 ```
 
-![Alt text](https://g.gravizo.com/svg%3F%20digraph%20G%20%7B%0AAndroidclient%5Bshape%3Dcomponent%5D%3B%0AFront%20%5Bshape%3Dbox%2Ccolor%3Dred%5D%3B%0APubSub%5Bshape%3Dcomponent%2Ccolor%3Dred%5D%3B%0ABack%5Bshape%3Dcomponent%2Ccolor%3Dred%5D%3B%0AAndroidclient%20-%3E%20Front%3B%0AFront-%3EPubSub%3B%0APubSub-%3EBack%3B%0ABack-%3EFront%3B%0A%7D )!
+![Alt text](https://g.gravizo.com/svg?digraph%20G%20%7B%0AAndroidclient%5Bshape%3Dcomponent%5D%3B%0AFront%20%5Bshape%3Dbox%2Ccolor%3Dred%5D%3B%0APubSub%5Bshape%3Dcomponent%2Ccolor%3Dred%5D%3B%0ABack%5Bshape%3Dcomponent%2Ccolor%3Dred%5D%3B%0AAndroidclient%20-%3E%20Front%3B%0AFront-%3EPubSub%3B%0APubSub-%3EBack%3B%0ABack-%3EFront%3B%0A%7D )!
 
 
 
