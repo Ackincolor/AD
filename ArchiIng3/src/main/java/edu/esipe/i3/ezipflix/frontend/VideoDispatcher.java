@@ -110,7 +110,7 @@ public class VideoDispatcher implements WebSocketConfigurer {
             CloudFileDirectory rootDir = share.getRootDirectoryReference();
             for ( ListFileItem fileItem : rootDir.listFilesAndDirectories() ) {
                 System.out.println(fileItem.getUri());
-                liste.add(fileItem.getUri());
+                liste.add(fileItem.getUri().toString());
             }
         }catch(Exception e){
             e.printStackTrace();
