@@ -100,13 +100,13 @@ public class ConvertController {
                     Float avancement = Float.parseFloat(text);
                     progressBar.setProgress(avancement.intValue());
                     webSocket.send(uuid);
-                    if(avancement>=100)
-                        webSocket.close(1000,null);
                 }catch (NumberFormatException e){
                     String targetPath = text;
                     textView.setText(targetPath);
                     progressBar.setProgress(100);
-                    webSocket.close(1000,null);
+                    if(!targetPath.equals(""))
+                        webSocket.close(1000,null);
+                    webSocket.send(uuid);
                 }catch(Exception e){
                     e.printStackTrace();
                 }
