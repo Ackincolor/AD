@@ -6,15 +6,15 @@
 
 ### Etapes :
 
-1 ) Installation des tous les composant sur une même machine virtuelle.
+1 ) Installation de tous les composant sur une même machine virtuelle.
 
-2 ) Séparation des composant Front Back MongoDB et RabbitMQ
+2 ) Séparation des composants Front Back MongoDB et RabbitMQ.
 
-3 ) Utilisation de ATLAS MongoDb a la place d'une base local.
+3 ) Utilisation de ATLAS MongoDb à la place d'une base de données local.
 
-4 ) Utilisation de AzureFile pour un stockage HA
+4 ) Utilisation de AzureFile pour un stockage HA.
 
-5 ) Utilisation de PUB/SUB a la place de RabbitMQ
+5 ) Utilisation de PUB/SUB à la place de RabbitMQ.
 
 ###### le plus dure est à venir
 
@@ -34,7 +34,45 @@
 
 ​		9.C ) Récupération du nom du fichier.
 
-### Difficultés :
+### Images Docker:
+
+Front
+
+```yaml
+FROM azul/zulu-openjdk-alpine:11
+WORKDIR /source
+COPY target/video-dispatcher-1.0-SNAPSHOT.jar /source/app.jar
+COPY ssl/keystore.pkcs12 /source/ssl/keystore.pkcs12
+COPY video-key.json /source/ArchiDistri.json
+ENV GOOGLE_APPLICATION_CREDENTIALS=key.json
+RUN chmod 777 -R /source
+EXPOSE 42308
+CMD ["/usr/bin/java","-jar","-Dspring.profiles.active=default","/source/app.jar"]
+```
+
+Back
+
+```yml
+FROM python:3.5-alpine
+ADD . /source
+WORKDIR /source
+COPY ca.cert.pem ./
+COPY application.yml ./application.yml
+RUN mkdir -p /home/lois/pyWorker
+COPY azure.yml /home/lois/pyWorker/azure.yml
+RUN apk add --no-cache build-base ffmpeg libffi-dev openssl-dev
+RUN pip install -r requierments.txt
+ENV GOOGLE_APPLICATION_CREDENTIALS=video-key.json
+CMD ["python","video-conversion-worker.py"]
+```
+
+
+
+### Deploiement Kubernetes
+
+Nous avons utilisé les templates qui sont disponibles dans les actions de github.
+
+### Ajouts Python
 
 Récupération de l'avancement de la conversion (Python) :
 
@@ -68,6 +106,28 @@ while True:
         # ligne non reconnu
         pass
 ```
+
+![Alt text](https://g.gravizo.com/svg?
+
+digraph G {
+    aize ="4,4";
+    main [shape=box];
+    main -> parse [weight=8];
+    parse -> execute;
+    main -> init [style=dotted];
+    main -> cleanup;
+    execute -> { make_string; printf}
+    init -> make_string;
+    edge [color=red];
+    main -> printf [style=bold,label="100 times"];
+    make_string [label="make a string"];
+    node [shape=box,style=filled,color=".7 .3 1.0"];
+    execute -> compare;
+  }
+
+)
+
+
 
 
 
