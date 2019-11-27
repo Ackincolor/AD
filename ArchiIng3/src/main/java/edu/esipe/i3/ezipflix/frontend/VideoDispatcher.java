@@ -103,11 +103,14 @@ public class VideoDispatcher implements WebSocketConfigurer {
     @RequestMapping(method = RequestMethod.GET,
                 value = "/directories")
     public String requestiFilesList() throws JsonProcessingException {
+        ArrayList<String> liste = new ArrayList<>();
         try{
             CloudFileClient fileClient = FileClientProvider.getFileClientReference();
-            for (CloudFileShare share : fileClient.listShares("storagearchidistri")) {
-                System.out.println(String.format("\tFile Share: %s", share.getName()));
-                enumerateDirectoryContents(share.getRootDirectoryReference());
+            CloudFileShare share : fileClient.listShares("archidistriconverter")
+            CloudFileDirectory rootDir = share.getRootDirectoryReference();
+            for ( ListFileItem fileItem : rootDir.listFilesAndDirectories() ) {
+                System.out.println(fileItem.getUri());
+                liste.add(fileItem.getUri())
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -165,18 +168,5 @@ public class VideoDispatcher implements WebSocketConfigurer {
 //        template.setQueue(conversionQueue);
 //        return template;
 //    }
-    private static String enumerateDirectoryContents(CloudFileDirectory rootDir) throws StorageException {
-
-        Iterable<ListFileItem> results = rootDir.listFilesAndDirectories();
-        for (Iterator<ListFileItem> itr = results.iterator(); itr.hasNext(); ) {
-            ListFileItem item = itr.next();
-            boolean isDirectory = item.getClass() == CloudFileDirectory.class;
-            System.out.println(String.format("\t\t%s: %s", isDirectory ? "Directory " : "File      ", item.getUri().toString()));
-            if (isDirectory == true) {
-            	System.out.println("is a directory");
-            }
-        }
-        return "okokokok";
-    }
 
 }
