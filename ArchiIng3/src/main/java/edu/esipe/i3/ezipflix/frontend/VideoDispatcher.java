@@ -49,6 +49,8 @@ import com.microsoft.azure.storage.file.CloudFileShare;
 import com.microsoft.azure.storage.file.CopyStatus;
 import com.microsoft.azure.storage.file.FileRange;
 import com.microsoft.azure.storage.file.ListFileItem;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * Created by Gilles GIRAUD gil on 11/4/17.
  */
@@ -112,7 +114,7 @@ public class VideoDispatcher implements WebSocketConfigurer {
             for ( ListFileItem fileItem : rootDir.listFilesAndDirectories() ) {
                 System.out.println(fileItem.getUri());
                 //si c'est un repertoir
-                if(item.getClass() == CloudFileDirectory.class)
+                if(fileItem.getClass() == CloudFileDirectory.class)
                 {
 
                 }else{
