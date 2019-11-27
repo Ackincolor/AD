@@ -2,6 +2,7 @@ package com.ackincolor.videoconversionclient.controller;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 
 import com.ackincolor.videoconversionclient.MainActivity;
@@ -10,9 +11,16 @@ import com.ackincolor.videoconversionclient.entities.PathConversion;
 import com.ackincolor.videoconversionclient.services.ConverterService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -117,5 +125,38 @@ public class ConvertController {
 
         clientStatus.newWebSocket(requestStatus, webSocketListenerStatus);
         clientStatus.dispatcher().executorService().shutdown();
+    }
+    public void directories(final MainActivity activity){
+        OkHttpClient okHttpClient = UnsafeOkHttpClient.getUnsafeOkHttpClient();
+        Gson gson = new GsonBuilder().serializeNulls().create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        ConverterService converterService = retrofit.create(ConverterService.class);
+        final Call<JsonArray> call = converterService.directories();
+        call.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+                ArrayList<String> stringArray = new ArrayList<>();
+                try{
+                    JsonArray jsonArray = response.body();
+                    Iterator iterator = jsonArray.iterator();
+                    while (iterator.hasNext()){
+                        JsonElement str = (JsonElement) iterator.next();
+                        stringArray.add(str.getAsString());
+                    }
+                    activity.setListSpinner(stringArray.toArray(new String[0]));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 }
