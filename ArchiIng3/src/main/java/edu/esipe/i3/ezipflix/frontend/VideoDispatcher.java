@@ -106,7 +106,7 @@ public class VideoDispatcher implements WebSocketConfigurer {
         ArrayList<String> liste = new ArrayList<>();
         try{
             CloudFileClient fileClient = FileClientProvider.getFileClientReference();
-            CloudFileShare share : fileClient.listShares("archidistriconverter");
+            CloudFileShare share = fileClient.listShares("archidistriconverter");
             CloudFileDirectory rootDir = share.getRootDirectoryReference();
             for ( ListFileItem fileItem : rootDir.listFilesAndDirectories() ) {
                 System.out.println(fileItem.getUri());
