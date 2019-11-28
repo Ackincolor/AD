@@ -107,5 +107,5 @@ while True:
         pass
 ```
 
-![Class Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/Ackincolor/AD/master/UML/deployement.puml)
+![Class Diagram](http://www.plantuml.com/plantuml/png/ZL6x3jim3Dpr5OI7RDwB3aM23XtQ8K3788CUZAr65bM9If4M-VSISGodY826Ws7TyNXyR0lhp7KAYYa14nXYfWcSpsZPKrJbx6FIMK-Gj3th0R_pDI3OGDMf1mJT5w91qC_V1EtWZmA94mM76RglrM2Eo5XcPev8JdGNxv3wKwR8Cxd6uOU-QFXm_1US1SwNfDcEc5VwfjRl-zP69dXnJbSUARQSmLAyOER_6QTgIZNFXNzMhBWGO4ST8uOET85K7WLkYcb0bgb4rzxxybWtluikatUms-yNkqXk9HPmdi7sDdYCV5mitxplxdVDSjxmTDw3lcCdBzc5AKlUNDLfraONKKqK1tBcFkNzNucZKkgf3-WRDuMFC3Ad0fiD_49Jo9wHLSiG-a-DoxmWalPee66sS2sPSCtsrguQjAZQsv69-cR3GhIjr1QZgrFu2m00)
 

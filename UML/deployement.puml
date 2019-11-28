@@ -1,4 +1,6 @@
 @startuml
+top to bottom direction
+skinparam packageStyle cloud
 package "Google CLoud" {
     folder "Kubernetes" {
         node "video-front" {
@@ -16,19 +18,22 @@ package "Google CLoud" {
         queue "pubsub channel" as ps
     }
 }
+together {
+skinparam packageStyle package
 package "Android APP" {
     node "Android" {
         [vc-client]
     }
 }
+skinparam packageStyle cloud
 package "Azure Cloud" {
     [azure file storage]
     database "mongodb" as mongo
 }
+}
 
 
-[vc-client] -> [video-dispatcher] : https
-[vc-client] -> [video-dispatcher] : websocket
+[vc-client] - [video-dispatcher] : https && websocket
 [azure file storage] -> [video converter]
 [video converter] -> mongo
 [video-dispatcher] -> mongo
