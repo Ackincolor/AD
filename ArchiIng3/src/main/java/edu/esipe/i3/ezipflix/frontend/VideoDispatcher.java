@@ -64,7 +64,7 @@ import io.swagger.annotations.ApiOperation;
 @EnableWebSocket
 @EnableSwagger2
 @Api(tags = "Video")
-@CrossOrigin
+@CrossOrigin(origins = "*")
 public class VideoDispatcher implements WebSocketConfigurer {
 
     // rabbitmqadmin -H localhost -u ezip -p pize -V ezip delete queue name=video-conversion-queue
