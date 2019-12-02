@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var movielist = "";
     getfiles();
-    getrunningconversions();
+    //getrunningconversions();
 
     console.log(movielist);
     /*$("#moviefiles").on('click', '.delfile', function(){
@@ -22,8 +22,9 @@ $(document).ready(function () {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 newconversion = JSON.parse(xmlhttp.responseText);
                 console.log(newconversion.uuid);
+                startWebSocket(newconversion.uuid);
                 $('#conversionlist').append("<div data-conv="+newconversion.uuid+" class=\"alert alert-success\" role=\"alert\">\n" +
-                    "                <h4 class=\"alert-heading\">"+movielist[idmovie].name+"</h4>\n" +
+                    "                <h4 class=\"alert-heading\">"+myrequest.path+"</h4>\n" +
                     "                <p>Conversion en cours</p>\n" +
                     "                <hr>\n" +
                     "                <p class=\"mb-0\"><div class=\"progress\">\n" +
@@ -32,13 +33,26 @@ $(document).ready(function () {
                     "            </div>");
             }
         }
-        var socket = new WebSocket('ws://localhost:8080/');
+    });
+
+    function startWebSocket(id){
+        var socket = new WebSocket('wss://35.224.228.254:42308/conversion_status');
+        var id2 = id;
         socket.onopen = function () {
             console.log('Connected!');
+            socket.send(id2);
         };
         socket.onmessage = function (event) {
-            console.log('Received data: ' + event.data);
-            socket.close();
+            var obj = [{uuid:id,progression:parseFloat(event.data)}];
+            console.log(obj);
+            if(event.data == "100.0")
+            {
+                displayrunning(obj);
+                socket.close()
+            }else {
+                displayrunning(obj);
+                socket.send(id2);
+            }
         };
         socket.onclose = function () {
             console.log('Lost connection!');
@@ -46,8 +60,7 @@ $(document).ready(function () {
         socket.onerror = function () {
             console.log('Error!');
         };
-        socket.send('hello, world!');
-    });
+    }
 
 
 
@@ -87,23 +100,6 @@ $(document).ready(function () {
                 "                        </div>\n" +
                 "                    </div>\n" +
                 "                </li>");
-        });
-    }
-
-    function getrunningconversions() {
-        var interval = 1000;
-        var running = [];
-        $.ajax({
-            type: 'GET',
-            url: 'https://35.189.202.227:42308/running',
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function (data) {
-                displayrunning(data);
-            },
-            complete: function (data) {
-                setTimeout(getrunningconversions, interval);
-            }
         });
     }
 
