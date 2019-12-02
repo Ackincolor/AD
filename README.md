@@ -16,7 +16,7 @@
 
 5 ) Utilisation de PUB/SUB à la place de RabbitMQ.
 
-###### le plus dure est à venir
+###### le plus dur est à venir
 
 6 ) Mise en place d'un service Docker local pour le Front
 
