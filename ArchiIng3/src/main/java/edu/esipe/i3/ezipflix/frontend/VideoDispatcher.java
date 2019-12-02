@@ -51,6 +51,10 @@ import com.microsoft.azure.storage.file.FileRange;
 import com.microsoft.azure.storage.file.ListFileItem;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 /**
  * Created by Gilles GIRAUD gil on 11/4/17.
  */
@@ -58,6 +62,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @SpringBootApplication
 @RestController
 @EnableWebSocket
+@EnableSwagger2
+@Api(tags = "Video")
 @CrossOrigin
 @ComponentScan(basePackages = {"edu.esipe.i3.ezipflix.frontend"})
 public class VideoDispatcher implements WebSocketConfigurer {
@@ -93,6 +99,7 @@ public class VideoDispatcher implements WebSocketConfigurer {
                     value = "/convert",
                     consumes = MediaType.APPLICATION_JSON_VALUE,
                     produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Create conversion")
     public ConversionResponse requestConversion(@RequestBody ConversionRequest request) throws JsonProcessingException {
         LOGGER.info("File = {}", request.getPath());
         final ConversionResponse response = new ConversionResponse();

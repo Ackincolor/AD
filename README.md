@@ -1,5 +1,15 @@
 # **TP Conversion**
 
+### Equipe :
+
+Loïs GUILLET-ANDRE
+
+Anaximandro BIAI
+
+Terence WODLING
+
+
+
 ### But : 
 
 ​	Mise en place d'un SI permettant la conversion sur demande d'un fichier vidéo.
