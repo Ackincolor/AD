@@ -39,10 +39,11 @@ public class ConvertController {
     final private MainActivity v;
     private ProgressBar progressBar;
     private TextView textView;
+
     public ConvertController(MainActivity v){
         this.v = v;
     }
-    public void start(String path, ProgressBar progressBar, TextView textView){
+    public void start(String path, ProgressBar progressBar, TextView textView, final int number){
         this.progressBar = progressBar;
         this.textView = textView;
         OkHttpClient okHttpClient = UnsafeOkHttpClient.getUnsafeOkHttpClient();
@@ -60,8 +61,8 @@ public class ConvertController {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if(response.isSuccessful()){
-                    System.out.println("conversion demmarée");
-                    v.setStatusConversion("conversion demmarée");
+                    System.out.println("conversion demarée");
+                    v.setStatusConversion("conversion demarée",number);
                     System.out.println(response.body());
                     //ouverture du websocket
                     getStatus(response.body().get("uuid").getAsString());
