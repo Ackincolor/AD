@@ -65,7 +65,6 @@ import io.swagger.annotations.ApiOperation;
 @EnableSwagger2
 @Api(tags = "Video")
 @CrossOrigin
-@ComponentScan(basePackages = {"edu.esipe.i3.ezipflix.frontend"})
 public class VideoDispatcher implements WebSocketConfigurer {
 
     // rabbitmqadmin -H localhost -u ezip -p pize -V ezip delete queue name=video-conversion-queue
@@ -111,6 +110,7 @@ public class VideoDispatcher implements WebSocketConfigurer {
     }
     @RequestMapping(method = RequestMethod.GET,
                 value = "/directories")
+    @ApiOperation(value = "get files list")
     public String requestiFilesList() throws JsonProcessingException {
         ArrayList<String> liste = new ArrayList<>();
         String json = "";
