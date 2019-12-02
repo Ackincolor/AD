@@ -1,4 +1,4 @@
-package edu.esipe.i3.ezipflix.dispatcher;
+package edu.esipe.i3.ezipflix.frontend;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,9 +16,9 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("edu.esipe.i3.ezipflix.dispatcher"))
+                .apis(RequestHandlerSelectors.basePackage("edu.esipe.i3.ezipflix.frontend"))
                 .paths(PathSelectors.any())
                 .build()
-                .tags(new Tag("Video","Video Converter operations"));
+                .tags(new Tag("Video","Video Converter api"));
     }
 }
