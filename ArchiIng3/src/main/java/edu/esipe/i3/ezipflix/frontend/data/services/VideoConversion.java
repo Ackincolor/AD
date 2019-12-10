@@ -32,7 +32,6 @@ public class VideoConversion {
 
     @Autowired VideoConversionRepository videoConversionRepository;
 
-    private ArrayList<VideoConversions> conversions;
 
 //    @Autowired
 //    @Qualifier("video-conversion-template")
@@ -57,10 +56,6 @@ public class VideoConversion {
         //rabbitTemplate.convertAndSend(conversionExchange, conversionQueue,  conversion.toJson());
         this.pubSubTemplate.publish("my-topic", conversion.toJson());
 	System.out.println(conversion.toJson());
-    }
-
-    public ArrayList<VideoConversions> getRunningConversions(){
-        return conversions;
     }
 
 }

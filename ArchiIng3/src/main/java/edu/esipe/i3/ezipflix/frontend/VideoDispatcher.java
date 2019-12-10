@@ -103,12 +103,6 @@ public class VideoDispatcher implements WebSocketConfigurer {
         return response;
     }
 
-    @GetMapping(value = "/running",produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Get all conversions")
-    public ArrayList<VideoConversions> getRunningConversions() {
-        return videoConversion.getRunningConversions();
-    } 
-
 
 
     @RequestMapping(method = RequestMethod.GET,
