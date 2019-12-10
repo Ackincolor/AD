@@ -40,7 +40,7 @@ public class VideoConversion {
 //    }
 
     public VideoConversion() throws IOException {
-        this.conversions = new ArrayList<>();
+        
     }
     public void save(
                 final ConversionRequest request,
