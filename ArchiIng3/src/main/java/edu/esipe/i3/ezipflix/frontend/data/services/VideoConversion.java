@@ -39,7 +39,7 @@ public class VideoConversion {
 //        this.rabbitTemplate = template;
 //    }
 
-    public VideoConversion() throws IOException {
+    public VideoConversion() {
         
     }
     public void save(
