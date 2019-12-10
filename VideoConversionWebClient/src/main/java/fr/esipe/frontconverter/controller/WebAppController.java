@@ -19,10 +19,6 @@ public class WebAppController {
 
     @RequestMapping("/")
     public String index(Model model){
-        model.addAttribute("datetime", new Date());
-        model.addAttribute("username", "Ömerrrr");
-        model.addAttribute("mode", appMode);
-
         return "index";
     }
 }

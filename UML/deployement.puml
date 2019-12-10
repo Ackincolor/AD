@@ -34,11 +34,11 @@ package "Azure Cloud" {
 
 
 [vc-client] - [video-dispatcher] : https && websocket
-[azure file storage] -> [video converter]
-[video converter] -> mongo
-[video-dispatcher] -> mongo
-[video converter] --> [video-dispatcher] : websocket
-[video-dispatcher] --> [azure file storage]
-ps --> [video converter]
-ps --> [video-dispatcher]
+[azure file storage] - [video converter]
+[video converter] - mongo
+[video-dispatcher] - mongo
+[video converter] - [video-dispatcher] : websocket
+[video-dispatcher] - [azure file storage]
+ps - [video converter]
+ps - [video-dispatcher]
 @enduml

@@ -32,12 +32,17 @@ public class VideoConversion {
 
     @Autowired VideoConversionRepository videoConversionRepository;
 
+    private ArrayList<VideoConversions> conversions;
+
 //    @Autowired
 //    @Qualifier("video-conversion-template")
 //    public void setRabbitTemplate(final RabbitTemplate template) {
 //        this.rabbitTemplate = template;
 //    }
 
+    public VideoConversion() throws IOException {
+        this.conversions = new ArrayList<>();
+    }
     public void save(
                 final ConversionRequest request,
                 final ConversionResponse response) throws JsonProcessingException {
@@ -52,6 +57,10 @@ public class VideoConversion {
         //rabbitTemplate.convertAndSend(conversionExchange, conversionQueue,  conversion.toJson());
         this.pubSubTemplate.publish("my-topic", conversion.toJson());
 	System.out.println(conversion.toJson());
+    }
+
+    public ArrayList<VideoConversions> getRunningConversions(){
+        return conversions;
     }
 
 }

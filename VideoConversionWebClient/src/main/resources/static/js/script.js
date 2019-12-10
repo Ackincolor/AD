@@ -1,7 +1,6 @@
 $(document).ready(function () {
     var movielist = "";
     getfiles();
-    //getrunningconversions();
 
     console.log(movielist);
     /*$("#moviefiles").on('click', '.delfile', function(){
@@ -9,7 +8,7 @@ $(document).ready(function () {
         removefile(movielist[idmovie]);
     });*/
 
-    $("#moviefiles").on('click', '.addconversion', function () {
+    $("#files").on('click', '.addconversion', function () {
         var idmovie = $(this).data("f");
         var myrequest = new Object();
         myrequest.path = movielist[idmovie];
@@ -23,7 +22,7 @@ $(document).ready(function () {
                 newconversion = JSON.parse(xmlhttp.responseText);
                 console.log(newconversion.uuid);
                 startWebSocket(newconversion.uuid);
-                $('#conversionlist').append("<div data-conv="+newconversion.uuid+" class=\"alert alert-success\" role=\"alert\">\n" +
+                $('#list').append("<div data-conv="+newconversion.uuid+" class=\"alert bg-secondary\" role=\"alert\">\n" +
                     "                <h4 class=\"alert-heading\">"+myrequest.path+"</h4>\n" +
                     "                <p>Conversion en cours</p>\n" +
                     "                <hr>\n" +
@@ -79,22 +78,18 @@ $(document).ready(function () {
     }
 
     function displaymovies(data) {
-        $( "#moviefiles" ).empty();
+        $( "#files" ).empty();
         movielist = data;
         $.each(data, function(i, obj) {
-            $( "#moviefiles" ).append("<li class=\"media rounded  ml-2 mr-2 mb-5 pr-4 shadow\">\n" +
-                "                    <img style=\"width: 100px; height: 100px;\" src=\"../video-file.png\" class=\"mr-3\" alt=\"...\">\n" +
+            $( "#files" ).append("<li class=\"media rounded  ml-2 mr-2 mb-5 pr-4 shadow\">\n" +
                 "                    <div class=\"media-body\">\n" +
                 "                        <div class=\"row\">\n" +
                 "                            <div class=\"col-8\">\n" +
-                "                                <h5 class=\"mt-0 mb-1\">"+obj+"</h5>\n" +
-                "                                <p>Size : "+"?"+"MB</p>\n" +
-                "                                <p>Format : "+"file"+"</p>\n" +
+                "                                <h5 class=\"mt-0 mb-1\">"+obj+"</h5>\n"+
                 "                            </div>\n" +
                 "                            <div class=\"col-4 align-self-center\">\n" +
                 "                                <div class=\"btn-group \" role=\"group\">\n" +
-                "                                    <button data-f="+i+" type=\"button\" class=\"delfile btn btn-outline-danger\">Supprimer</button>\n" +
-                "                                    <button data-f="+i+" type=\"button\" class=\"addconversion btn btn-outline-secondary\">Convertir</button>\n" +
+                "                                    <button data-f="+i+" type=\"button\" class=\"addconversion btn btn-outline\">Convertir</button>\n" +
                 "                                </div>\n" +
                 "                            </div>\n" +
                 "                        </div>\n" +

@@ -5,12 +5,6 @@ import edu.esipe.i3.ezipflix.frontend.data.services.VideoConversion;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.core.*;
-import org.springframework.amqp.rabbit.annotation.EnableRabbit;
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitAdmin;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -108,6 +102,15 @@ public class VideoDispatcher implements WebSocketConfigurer {
 	System.out.println("request Post convert");
         return response;
     }
+
+    @GetMapping(value = "/running",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Get all conversions")
+    public ArrayList<VideoConversions> getRunningConversions() {
+        return videoConversion.getRunningConversions();
+    } 
+
+
+
     @RequestMapping(method = RequestMethod.GET,
                 value = "/directories")
     @ApiOperation(value = "get files list")
