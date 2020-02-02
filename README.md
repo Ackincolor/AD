@@ -12,7 +12,7 @@ Terence WODLING
 
 ### But : 
 
-​	Mise en place d'un SI permettant la conversion sur demande d'un fichier vidéo.
+​	Mise en place d'un SI permettant la conversion sur demande d'un fichier vidéo au format MP4.
 
 ### Etapes :
 
