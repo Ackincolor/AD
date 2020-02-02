@@ -1,35 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: video-front-deploy
+  name: grafana
   labels:
-    app: video-front
+    app: grafana
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: video-front
+      app: grafana
   template:
     metadata:
       labels:
-        app: video-front
+        app: grafana
     spec:
       containers:
-      - name: video-front
-        image: gcr.io/archidistri/frontconverter@sha256:bb9b6ea0538df6581d93075144a682878474e989248fc5156c212877eb00f673
+      - name: grafana
+        image: gcr.io/cloud-marketplace/google/grafana6@sha256:6b00240c7ae15374b61e2febc8c9b5fc89e35db263e3e8a71427aaf5088bf257
         ports:
-        - containerPort: 42308
+        - containerPort: 3000
           protocol: TCP
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: video-front-service
+  name: grafana-service
 spec:
   selector:
-    app: video-front
+    app: grafana
   ports:
-    - port: 42308
-      targetPort: 42308
+    - port: 3000
+      targetPort: 3000
       nodePort: 30008
   type: LoadBalancer
