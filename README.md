@@ -30,11 +30,11 @@ Terence WODLING
 
 6 ) Mise en place d'un service Docker local pour le Front
 
-​		6.A ) Utilisation de GKE pour le Front
+​		6.A ) Utilisation de GKE pour le Front.
 
 7 ) Mise en place d'un service Docker local pour le Back
 
-​		7.A ) Utilisation de GKE pour le Back
+​		7.A ) Utilisation de GKE pour le Back.
 
 8 ) développement d'un client Lourd (Pour le moment)
 
