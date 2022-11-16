@@ -77,7 +77,6 @@ CMD ["python","video-conversion-worker.py"]
 ```
 
 
-
 ### Deploiement Kubernetes
 
 Nous avons utilisé les templates qui sont disponibles dans les actions de github.
